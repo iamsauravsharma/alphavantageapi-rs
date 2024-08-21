@@ -68,7 +68,7 @@ impl Exchange {
     /// #[tokio::main]
     /// async fn main() {
     ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
-    ///     let exchange = api.exchange("BTC", "CNY").json().await.unwrap();
+    ///     let exchange = api.exchange("BTC", "EUR").json().await.unwrap();
     ///     let code_from = exchange.code_from();
     ///     assert_eq!(code_from, "BTC");
     /// }
@@ -84,7 +84,7 @@ impl Exchange {
     /// #[tokio::main]
     /// async fn main() {
     ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
-    ///     let exchange = api.exchange("BTC", "CNY").json().await.unwrap();
+    ///     let exchange = api.exchange("BTC", "EUR").json().await.unwrap();
     ///     let name_from = exchange.name_from();
     ///     assert_eq!(name_from, "Bitcoin");
     /// }
@@ -100,9 +100,9 @@ impl Exchange {
     /// #[tokio::main]
     /// async fn main() {
     ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
-    ///     let exchange = api.exchange("BTC", "CNY").json().await.unwrap();
+    ///     let exchange = api.exchange("BTC", "EUR").json().await.unwrap();
     ///     let code_to = exchange.code_to();
-    ///     assert_eq!(code_to, "CNY");
+    ///     assert_eq!(code_to, "EUR");
     /// }
     /// ```
     #[must_use]
@@ -116,9 +116,9 @@ impl Exchange {
     /// #[tokio::main]
     /// async fn main() {
     ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
-    ///     let exchange = api.exchange("BTC", "CNY").json().await.unwrap();
+    ///     let exchange = api.exchange("BTC", "EUR").json().await.unwrap();
     ///     let name_to = exchange.name_to();
-    ///     assert_eq!(name_to, "Chinese Yuan");
+    ///     assert_eq!(name_to, "Euro");
     /// }
     /// ```
     #[must_use]

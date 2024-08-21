@@ -13,7 +13,7 @@ pub enum Error {
     #[error("information: {0}")]
     AlphaVantageInformation(String),
 
-    /// Error which is raised if error_message is returned by API instead of
+    /// Error which is raised if error message is returned by API instead of
     /// data from API
     #[error("error_message: {0}")]
     AlphaVantageErrorMessage(String),

@@ -10,7 +10,6 @@
 
 use std::cmp;
 use std::collections::HashMap;
-use std::str::FromStr;
 
 use serde::Deserialize;
 
@@ -42,16 +41,11 @@ struct MetaData {
 #[derive(Default, Debug, Clone)]
 pub struct Data {
     time: String,
-    market_open: f64,
-    usd_open: f64,
-    market_high: f64,
-    usd_high: f64,
-    market_low: f64,
-    usd_low: f64,
-    market_close: f64,
-    usd_close: f64,
+    open: f64,
+    high: f64,
+    low: f64,
+    close: f64,
     volume: f64,
-    market_cap: f64,
 }
 
 impl Data {
@@ -61,64 +55,34 @@ impl Data {
         &self.time
     }
 
-    /// Return market open value
+    /// Return open value
     #[must_use]
-    pub fn market_open(&self) -> f64 {
-        self.market_open
+    pub fn open(&self) -> f64 {
+        self.open
     }
 
-    /// Return usd open value
+    /// Return high value
     #[must_use]
-    pub fn usd_open(&self) -> f64 {
-        self.usd_open
+    pub fn high(&self) -> f64 {
+        self.high
     }
 
-    /// Return market high value
+    /// Return low value
     #[must_use]
-    pub fn market_high(&self) -> f64 {
-        self.market_high
+    pub fn low(&self) -> f64 {
+        self.low
     }
 
-    /// Return usd high value
+    /// Return close value
     #[must_use]
-    pub fn usd_high(&self) -> f64 {
-        self.usd_high
-    }
-
-    /// Return market low value
-    #[must_use]
-    pub fn market_low(&self) -> f64 {
-        self.market_low
-    }
-
-    /// Return usd low value
-    #[must_use]
-    pub fn usd_low(&self) -> f64 {
-        self.usd_low
-    }
-
-    /// Return market close value
-    #[must_use]
-    pub fn market_close(&self) -> f64 {
-        self.market_close
-    }
-
-    /// Return usd close value
-    #[must_use]
-    pub fn usd_close(&self) -> f64 {
-        self.usd_close
+    pub fn close(&self) -> f64 {
+        self.close
     }
 
     /// Return volume
     #[must_use]
     pub fn volume(&self) -> f64 {
         self.volume
-    }
-
-    /// Return market cap
-    #[must_use]
-    pub fn market_cap(&self) -> f64 {
-        self.market_cap
     }
 }
 
@@ -137,7 +101,7 @@ impl Crypto {
     /// async fn main() {
     ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
     ///     let crypto = api
-    ///         .crypto(alpha_vantage::crypto::CryptoFunction::Daily, "BTC", "CNY")
+    ///         .crypto(alpha_vantage::crypto::CryptoFunction::Daily, "BTC", "EUR")
     ///         .json()
     ///         .await
     ///         .unwrap();
@@ -157,7 +121,7 @@ impl Crypto {
     /// async fn main() {
     ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
     ///     let crypto = api
-    ///         .crypto(alpha_vantage::crypto::CryptoFunction::Daily, "BTC", "CNY")
+    ///         .crypto(alpha_vantage::crypto::CryptoFunction::Daily, "BTC", "EUR")
     ///         .json()
     ///         .await
     ///         .unwrap();
@@ -177,7 +141,7 @@ impl Crypto {
     /// async fn main() {
     ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
     ///     let crypto = api
-    ///         .crypto(alpha_vantage::crypto::CryptoFunction::Daily, "BTC", "CNY")
+    ///         .crypto(alpha_vantage::crypto::CryptoFunction::Daily, "BTC", "EUR")
     ///         .json()
     ///         .await
     ///         .unwrap();
@@ -197,12 +161,12 @@ impl Crypto {
     /// async fn main() {
     ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
     ///     let crypto = api
-    ///         .crypto(alpha_vantage::crypto::CryptoFunction::Daily, "BTC", "CNY")
+    ///         .crypto(alpha_vantage::crypto::CryptoFunction::Daily, "BTC", "EUR")
     ///         .json()
     ///         .await
     ///         .unwrap();
     ///     let market_code = crypto.market_code();
-    ///     assert_eq!(market_code, "CNY");
+    ///     assert_eq!(market_code, "EUR");
     /// }
     /// ```
     #[must_use]
@@ -217,12 +181,12 @@ impl Crypto {
     /// async fn main() {
     ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
     ///     let crypto = api
-    ///         .crypto(alpha_vantage::crypto::CryptoFunction::Daily, "BTC", "CNY")
+    ///         .crypto(alpha_vantage::crypto::CryptoFunction::Daily, "BTC", "EUR")
     ///         .json()
     ///         .await
     ///         .unwrap();
     ///     let market_name = crypto.market_name();
-    ///     assert_eq!(market_name, "Chinese Yuan");
+    ///     assert_eq!(market_name, "Euro");
     /// }
     /// ```
     #[must_use]
@@ -266,20 +230,16 @@ impl Crypto {
 /// Struct to help out for creation of struct Data
 #[derive(Deserialize, Clone)]
 struct DataHelper {
-    #[serde(rename = "1b. open (USD)", deserialize_with = "from_str")]
-    open_usd: f64,
-    #[serde(rename = "2b. high (USD)", deserialize_with = "from_str")]
-    high_usd: f64,
-    #[serde(rename = "3b. low (USD)", deserialize_with = "from_str")]
-    low_usd: f64,
-    #[serde(rename = "4b. close (USD)", deserialize_with = "from_str")]
-    close_usd: f64,
+    #[serde(rename = "1. open", deserialize_with = "from_str")]
+    open: f64,
+    #[serde(rename = "2. high", deserialize_with = "from_str")]
+    high: f64,
+    #[serde(rename = "3. low", deserialize_with = "from_str")]
+    low: f64,
+    #[serde(rename = "4. close", deserialize_with = "from_str")]
+    close: f64,
     #[serde(rename = "5. volume", deserialize_with = "from_str")]
     volume: f64,
-    #[serde(rename = "6. market cap (USD)", deserialize_with = "from_str")]
-    market_cap: f64,
-    #[serde(flatten)]
-    market_data: HashMap<String, String>,
 }
 
 /// Struct to help out for creation of struct Crypto
@@ -301,7 +261,6 @@ impl CryptoHelper {
     /// Function which convert `CryptoHelper` to `Crypto`
     fn convert(self) -> Result<Crypto> {
         detect_common_helper_error(self.information, self.error_message, self.note)?;
-
         if self.meta_data.is_none() || self.data.is_none() {
             return Err(Error::EmptyResponse);
         }
@@ -314,30 +273,15 @@ impl CryptoHelper {
                     .get(key)
                     .expect("failed to get value from crypto hashmap");
 
-                let mut data = Data {
+                let data = Data {
                     time: key.to_string(),
-                    usd_open: data_helper.open_usd,
-                    usd_high: data_helper.high_usd,
-                    usd_low: data_helper.low_usd,
-                    usd_close: data_helper.close_usd,
-                    market_cap: data_helper.market_cap,
+                    open: data_helper.open,
+                    high: data_helper.high,
+                    low: data_helper.low,
+                    close: data_helper.close,
                     volume: data_helper.volume,
-                    ..Data::default()
                 };
 
-                for key in data_helper.market_data.keys() {
-                    let value = &data_helper.market_data[key];
-                    let f64_value = f64::from_str(value).unwrap();
-                    if key.contains("1a") {
-                        data.market_open = f64_value;
-                    } else if key.contains("2a") {
-                        data.market_high = f64_value;
-                    } else if key.contains("3a") {
-                        data.market_low = f64_value;
-                    } else if key.contains("4a") {
-                        data.market_close = f64_value;
-                    }
-                }
                 vec_data.push(data);
             }
         }

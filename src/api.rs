@@ -20,7 +20,7 @@ const RAPID_API_BASE_URL: &str = "https://alpha-vantage.p.rapidapi.com/query";
 pub enum Provider {
     /// Use alphavantage API provider
     AlphaVantage,
-    /// User RapidAPI as provider
+    /// User `RapidAPI` as provider
     RapidAPI,
 }
 
@@ -119,14 +119,14 @@ impl ApiClient {
     /// async fn main() {
     ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
     ///     let crypto = api
-    ///         .crypto(alpha_vantage::crypto::CryptoFunction::Daily, "BTC", "CNY")
+    ///         .crypto(alpha_vantage::crypto::CryptoFunction::Daily, "BTC", "EUR")
     ///         .json()
     ///         .await
     ///         .unwrap();
     ///     assert_eq!(crypto.digital_code(), "BTC");
     ///     assert_eq!(crypto.digital_name(), "Bitcoin");
-    ///     assert_eq!(crypto.market_code(), "CNY");
-    ///     assert_eq!(crypto.market_name(), "Chinese Yuan");
+    ///     assert_eq!(crypto.market_code(), "EUR");
+    ///     assert_eq!(crypto.market_name(), "Euro");
     /// }
     /// ```
     #[must_use]
@@ -190,11 +190,11 @@ impl ApiClient {
     /// #[tokio::main]
     /// async fn main() {
     ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
-    ///     let exchange = api.exchange("BTC", "CNY").json().await.unwrap();
+    ///     let exchange = api.exchange("BTC", "EUR").json().await.unwrap();
     ///     assert_eq!(exchange.name_from(), "Bitcoin");
     ///     assert_eq!(exchange.code_from(), "BTC");
-    ///     assert_eq!(exchange.name_to(), "Chinese Yuan");
-    ///     assert_eq!(exchange.code_to(), "CNY");
+    ///     assert_eq!(exchange.name_to(), "Euro");
+    ///     assert_eq!(exchange.code_to(), "EUR");
     /// }
     /// ```
     #[must_use]
