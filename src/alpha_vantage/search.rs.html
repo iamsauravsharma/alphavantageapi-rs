@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/search.rs`."><title>search.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="alpha_vantage" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (ca62d2c44 2023-09-30)" data-channel="nightly" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../alpha_vantage/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/search.rs`."><title>search.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-b25d77b18a16a9a4.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="alpha_vantage" data-themes="" data-resource-suffix="" data-rustdoc-version="1.82.0-nightly (5aea14073 2024-08-20)" data-channel="nightly" data-search-js="search-ef54e092fea9c776.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-cb0df477c2d67d00.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-3b12f09e550e0385.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -245,23 +245,23 @@
 <span class="doccomment">/// Struct which stores matches data for search keyword
 </span><span class="attr">#[derive(Debug, Clone, Deserialize, Default)]
 </span><span class="kw">pub struct </span>Match {
-    <span class="attr">#[serde(rename = <span class="string">&quot;1. symbol&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">"1. symbol"</span>)]
     </span>symbol: String,
-    <span class="attr">#[serde(rename = <span class="string">&quot;2. name&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">"2. name"</span>)]
     </span>name: String,
-    <span class="attr">#[serde(rename = <span class="string">&quot;3. type&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">"3. type"</span>)]
     </span>stock_type: String,
-    <span class="attr">#[serde(rename = <span class="string">&quot;4. region&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">"4. region"</span>)]
     </span>region: String,
-    <span class="attr">#[serde(rename = <span class="string">&quot;5. marketOpen&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">"5. marketOpen"</span>)]
     </span>market_open: String,
-    <span class="attr">#[serde(rename = <span class="string">&quot;6. marketClose&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">"6. marketClose"</span>)]
     </span>market_close: String,
-    <span class="attr">#[serde(rename = <span class="string">&quot;7. timezone&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">"7. timezone"</span>)]
     </span>time_zone: String,
-    <span class="attr">#[serde(rename = <span class="string">&quot;8. currency&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">"8. currency"</span>)]
     </span>currency: String,
-    <span class="attr">#[serde(rename = <span class="string">&quot;9. matchScore&quot;</span>, deserialize_with = <span class="string">&quot;from_str&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">"9. matchScore"</span>, deserialize_with = <span class="string">"from_str"</span>)]
     </span>match_score: f64,
 }
 
@@ -271,10 +271,10 @@
     /// ```
     /// #[tokio::main]
     /// async fn main() {
-    ///     let api = alpha_vantage::set_api(&quot;demo&quot;, reqwest::Client::new());
-    ///     let search = api.search(&quot;BA&quot;).json().await.unwrap();
+    ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
+    ///     let search = api.search("BA").json().await.unwrap();
     ///     let symbol = search.matches()[0].symbol();
-    ///     assert_eq!(symbol, &quot;BA&quot;);
+    ///     assert_eq!(symbol, "BA");
     /// }
     /// ```
     </span><span class="attr">#[must_use]
@@ -287,10 +287,10 @@
     /// ```
     /// #[tokio::main]
     /// async fn main() {
-    ///     let api = alpha_vantage::set_api(&quot;demo&quot;, reqwest::Client::new());
-    ///     let search = api.search(&quot;BA&quot;).json().await.unwrap();
+    ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
+    ///     let search = api.search("BA").json().await.unwrap();
     ///     let name = search.matches()[0].name();
-    ///     assert_eq!(name, &quot;Boeing Company&quot;);
+    ///     assert_eq!(name, "Boeing Company");
     /// }
     /// ```
     </span><span class="attr">#[must_use]
@@ -303,10 +303,10 @@
     /// ```
     /// #[tokio::main]
     /// async fn main() {
-    ///     let api = alpha_vantage::set_api(&quot;demo&quot;, reqwest::Client::new());
-    ///     let search = api.search(&quot;BA&quot;).json().await.unwrap();
+    ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
+    ///     let search = api.search("BA").json().await.unwrap();
     ///     let stock_type = search.matches()[0].stock_type();
-    ///     assert_eq!(stock_type, &quot;Equity&quot;);
+    ///     assert_eq!(stock_type, "Equity");
     /// }
     </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>stock_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
@@ -318,10 +318,10 @@
     /// ```
     /// #[tokio::main]
     /// async fn main() {
-    ///     let api = alpha_vantage::set_api(&quot;demo&quot;, reqwest::Client::new());
-    ///     let search = api.search(&quot;BA&quot;).json().await.unwrap();
+    ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
+    ///     let search = api.search("BA").json().await.unwrap();
     ///     let region = search.matches()[0].region();
-    ///     assert_eq!(region, &quot;United States&quot;);
+    ///     assert_eq!(region, "United States");
     /// }
     </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>region(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
@@ -333,10 +333,10 @@
     /// ```
     /// #[tokio::main]
     /// async fn main() {
-    ///     let api = alpha_vantage::set_api(&quot;demo&quot;, reqwest::Client::new());
-    ///     let search = api.search(&quot;BA&quot;).json().await.unwrap();
+    ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
+    ///     let search = api.search("BA").json().await.unwrap();
     ///     let market_open = search.matches()[0].market_open();
-    ///     assert_eq!(market_open, &quot;09:30&quot;);
+    ///     assert_eq!(market_open, "09:30");
     /// }
     </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>market_open(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
@@ -348,10 +348,10 @@
     /// ```
     /// #[tokio::main]
     /// async fn main() {
-    ///     let api = alpha_vantage::set_api(&quot;demo&quot;, reqwest::Client::new());
-    ///     let search = api.search(&quot;BA&quot;).json().await.unwrap();
+    ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
+    ///     let search = api.search("BA").json().await.unwrap();
     ///     let market_close = search.matches()[0].market_close();
-    ///     assert_eq!(market_close, &quot;16:00&quot;);
+    ///     assert_eq!(market_close, "16:00");
     /// }
     </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>market_close(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
@@ -369,10 +369,10 @@
     /// ```
     /// #[tokio::main]
     /// async fn main() {
-    ///     let api = alpha_vantage::set_api(&quot;demo&quot;, reqwest::Client::new());
-    ///     let search = api.search(&quot;BA&quot;).json().await.unwrap();
+    ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
+    ///     let search = api.search("BA").json().await.unwrap();
     ///     let currency = search.matches()[0].currency();
-    ///     assert_eq!(currency, &quot;USD&quot;);
+    ///     assert_eq!(currency, "USD");
     /// }
     </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>currency(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
@@ -384,8 +384,8 @@
     /// ```
     /// #[tokio::main]
     /// async fn main() {
-    ///     let api = alpha_vantage::set_api(&quot;demo&quot;, reqwest::Client::new());
-    ///     let search = api.search(&quot;BA&quot;).json().await.unwrap();
+    ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
+    ///     let search = api.search("BA").json().await.unwrap();
     ///     let match_score = search.matches()[0].match_score();
     ///     assert_eq!(match_score, 1.0);
     /// }
@@ -412,11 +412,11 @@
 <span class="doccomment">/// struct for helping creation of search struct
 </span><span class="attr">#[derive(Debug, Deserialize)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>SearchHelper {
-    <span class="attr">#[serde(rename = <span class="string">&quot;Information&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">"Information"</span>)]
     </span>information: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    <span class="attr">#[serde(rename = <span class="string">&quot;Note&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">"Note"</span>)]
     </span>note: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    <span class="attr">#[serde(rename = <span class="string">&quot;bestMatches&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">"bestMatches"</span>)]
     </span>matches: <span class="prelude-ty">Option</span>&lt;Vec&lt;Match&gt;&gt;,
 }
 
@@ -433,17 +433,17 @@
 }
 
 <span class="doccomment">/// Builder to create new `Search`
-</span><span class="kw">pub struct </span>SearchBuilder&lt;<span class="lifetime">&#39;a</span>&gt; {
-    api_client: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>ApiClient,
-    keywords: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
+</span><span class="kw">pub struct </span>SearchBuilder&lt;<span class="lifetime">'a</span>&gt; {
+    api_client: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>ApiClient,
+    keywords: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; SearchBuilder&lt;<span class="lifetime">&#39;a</span>&gt; {
+<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>&gt; SearchBuilder&lt;<span class="lifetime">'a</span>&gt; {
     <span class="macro">crate::json_data_struct!</span>(Search, SearchHelper);
 
     <span class="doccomment">/// Create new `SearchBuilder` from `APIClient`
     </span><span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>new(api_client: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>ApiClient, keywords: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>new(api_client: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>ApiClient, keywords: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             api_client,
             keywords,
@@ -451,7 +451,7 @@
     }
 
     <span class="kw">fn </span>create_url(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
-        <span class="macro">format!</span>(<span class="string">&quot;query?function=SYMBOL_SEARCH&amp;keywords={}&quot;</span>, <span class="self">self</span>.keywords)
+        <span class="macro">format!</span>(<span class="string">"query?function=SYMBOL_SEARCH&amp;keywords={}"</span>, <span class="self">self</span>.keywords)
     }
 }
 </code></pre></div></section></main></body></html>

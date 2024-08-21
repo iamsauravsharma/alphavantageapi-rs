@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/technical_indicator.rs`."><title>technical_indicator.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="alpha_vantage" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (ca62d2c44 2023-09-30)" data-channel="nightly" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../alpha_vantage/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/technical_indicator.rs`."><title>technical_indicator.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-b25d77b18a16a9a4.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="alpha_vantage" data-themes="" data-resource-suffix="" data-rustdoc-version="1.82.0-nightly (5aea14073 2024-08-20)" data-channel="nightly" data-search-js="search-ef54e092fea9c776.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-cb0df477c2d67d00.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-3b12f09e550e0385.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -308,13 +308,13 @@
 <span class="doccomment">/// Struct for helping `TechnicalIndicator` struct
 </span><span class="attr">#[derive(Deserialize)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>TechnicalIndicatorHelper {
-    <span class="attr">#[serde(rename = <span class="string">&quot;Error Message&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">"Error Message"</span>)]
     </span>error_message: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    <span class="attr">#[serde(rename = <span class="string">&quot;Information&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">"Information"</span>)]
     </span>information: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    <span class="attr">#[serde(rename = <span class="string">&quot;Note&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">"Note"</span>)]
     </span>note: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    <span class="attr">#[serde(rename = <span class="string">&quot;Meta Data&quot;</span>)]
+    <span class="attr">#[serde(rename = <span class="string">"Meta Data"</span>)]
     </span>metadata: <span class="prelude-ty">Option</span>&lt;HashMap&lt;String, Value&gt;&gt;,
     <span class="attr">#[serde(flatten)]
     </span>data: <span class="prelude-ty">Option</span>&lt;DataType&gt;,
@@ -334,25 +334,25 @@
 }
 
 <span class="doccomment">/// Builder to help create `TechnicalIndicator`
-</span><span class="kw">pub struct </span>TechnicalIndicatorBuilder&lt;<span class="lifetime">&#39;a</span>&gt; {
-    api_client: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>ApiClient,
-    function: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
-    symbol: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
+</span><span class="kw">pub struct </span>TechnicalIndicatorBuilder&lt;<span class="lifetime">'a</span>&gt; {
+    api_client: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>ApiClient,
+    function: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
+    symbol: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
     interval: TechnicalIndicatorInterval,
     time_period: <span class="prelude-ty">Option</span>&lt;u64&gt;,
-    series_type: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt;,
+    series_type: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>str&gt;,
     extra_params: HashMap&lt;String, String&gt;,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; TechnicalIndicatorBuilder&lt;<span class="lifetime">&#39;a</span>&gt; {
+<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>&gt; TechnicalIndicatorBuilder&lt;<span class="lifetime">'a</span>&gt; {
     <span class="macro">crate::json_data_struct!</span>(TechnicalIndicator, TechnicalIndicatorHelper);
 
     <span class="doccomment">/// Create new `TechnicalIndicatorBuilder` form `APIClient`
     </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>new(
-        api_client: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>ApiClient,
-        function: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
-        symbol: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
+        api_client: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>ApiClient,
+        function: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
+        symbol: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
         interval: TechnicalIndicatorInterval,
     ) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
@@ -373,7 +373,7 @@
     </span>}
 
     <span class="doccomment">/// Set series type for API
-    </span><span class="kw">pub fn </span>series_type(<span class="kw-2">&amp;mut </span><span class="self">self</span>, series_type: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>series_type(<span class="kw-2">&amp;mut </span><span class="self">self</span>, series_type: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self </span>{
         <span class="self">self</span>.series_type = <span class="prelude-val">Some</span>(series_type);
         <span class="self">self
     </span>}
@@ -391,31 +391,31 @@
 
     <span class="kw">fn </span>create_url(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="kw">let </span>interval_val = <span class="kw">match </span><span class="self">self</span>.interval {
-            TechnicalIndicatorInterval::OneMin =&gt; <span class="string">&quot;1min&quot;</span>,
-            TechnicalIndicatorInterval::FiveMin =&gt; <span class="string">&quot;5min&quot;</span>,
-            TechnicalIndicatorInterval::FifteenMin =&gt; <span class="string">&quot;15min&quot;</span>,
-            TechnicalIndicatorInterval::ThirtyMin =&gt; <span class="string">&quot;30min&quot;</span>,
-            TechnicalIndicatorInterval::SixtyMin =&gt; <span class="string">&quot;60min&quot;</span>,
-            TechnicalIndicatorInterval::Daily =&gt; <span class="string">&quot;daily&quot;</span>,
-            TechnicalIndicatorInterval::Weekly =&gt; <span class="string">&quot;weekly&quot;</span>,
-            TechnicalIndicatorInterval::Monthly =&gt; <span class="string">&quot;monthly&quot;</span>,
+            TechnicalIndicatorInterval::OneMin =&gt; <span class="string">"1min"</span>,
+            TechnicalIndicatorInterval::FiveMin =&gt; <span class="string">"5min"</span>,
+            TechnicalIndicatorInterval::FifteenMin =&gt; <span class="string">"15min"</span>,
+            TechnicalIndicatorInterval::ThirtyMin =&gt; <span class="string">"30min"</span>,
+            TechnicalIndicatorInterval::SixtyMin =&gt; <span class="string">"60min"</span>,
+            TechnicalIndicatorInterval::Daily =&gt; <span class="string">"daily"</span>,
+            TechnicalIndicatorInterval::Weekly =&gt; <span class="string">"weekly"</span>,
+            TechnicalIndicatorInterval::Monthly =&gt; <span class="string">"monthly"</span>,
         };
 
         <span class="kw">let </span><span class="kw-2">mut </span>created_link = <span class="macro">format!</span>(
-            <span class="string">&quot;query?function={}&amp;symbol={}&amp;interval={interval_val}&quot;</span>,
+            <span class="string">"query?function={}&amp;symbol={}&amp;interval={interval_val}"</span>,
             <span class="kw-2">&amp;</span><span class="self">self</span>.function, <span class="kw-2">&amp;</span><span class="self">self</span>.symbol
         );
 
         <span class="kw">if let </span><span class="prelude-val">Some</span>(time_period) = <span class="kw-2">&amp;</span><span class="self">self</span>.time_period {
-            created_link.push_str(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;&amp;time_period={time_period}&quot;</span>));
+            created_link.push_str(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">"&amp;time_period={time_period}"</span>));
         }
 
         <span class="kw">if let </span><span class="prelude-val">Some</span>(series_type) = <span class="kw-2">&amp;</span><span class="self">self</span>.series_type {
-            created_link.push_str(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;&amp;series_type={series_type}&quot;</span>));
+            created_link.push_str(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">"&amp;series_type={series_type}"</span>));
         }
 
         <span class="kw">for </span>(param, value) <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.extra_params {
-            created_link.push_str(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;&amp;{param}={value}&quot;</span>));
+            created_link.push_str(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">"&amp;{param}={value}"</span>));
         }
 
         created_link

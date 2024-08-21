@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/api.rs`."><title>api.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="alpha_vantage" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (ca62d2c44 2023-09-30)" data-channel="nightly" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../alpha_vantage/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/api.rs`."><title>api.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-b25d77b18a16a9a4.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="alpha_vantage" data-themes="" data-resource-suffix="" data-rustdoc-version="1.82.0-nightly (5aea14073 2024-08-20)" data-channel="nightly" data-search-js="search-ef54e092fea9c776.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-cb0df477c2d67d00.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-3b12f09e550e0385.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -367,14 +367,14 @@
 <span class="kw">use </span><span class="kw">crate</span>::stock_time::{StockFunction, TimeSeriesBuilder};
 <span class="kw">use </span><span class="kw">crate</span>::technical_indicator::{TechnicalIndicatorBuilder, TechnicalIndicatorInterval};
 
-<span class="kw">const </span>BASE_URL: <span class="kw-2">&amp;</span>str = <span class="string">&quot;https://www.alphavantage.co/&quot;</span>;
-<span class="kw">const </span>RAPID_API_BASE_URL: <span class="kw-2">&amp;</span>str = <span class="string">&quot;https://alpha-vantage.p.rapidapi.com/query&quot;</span>;
+<span class="kw">const </span>BASE_URL: <span class="kw-2">&amp;</span>str = <span class="string">"https://www.alphavantage.co/"</span>;
+<span class="kw">const </span>RAPID_API_BASE_URL: <span class="kw-2">&amp;</span>str = <span class="string">"https://alpha-vantage.p.rapidapi.com/query"</span>;
 
 <span class="doccomment">/// Provider for alpha vantage API
 </span><span class="kw">pub enum </span>Provider {
     <span class="doccomment">/// Use alphavantage API provider
     </span>AlphaVantage,
-    <span class="doccomment">/// User RapidAPI as provider
+    <span class="doccomment">/// User `RapidAPI` as provider
     </span>RapidAPI,
 }
 
@@ -391,13 +391,13 @@
     ///
     /// ```
     /// use alpha_vantage::api::ApiClient;
-    /// let api = ApiClient::set_api(&quot;some_key&quot;, reqwest::Client::new());
+    /// let api = ApiClient::set_api("some_key", reqwest::Client::new());
     /// ```
     </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>set_api&lt;S, T&gt;(api: S, client: T) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span>S: Into&lt;String&gt;,
-        T: HttpClient + <span class="lifetime">&#39;static </span>+ Send + Sync,
+        T: HttpClient + <span class="lifetime">'static </span>+ Send + Sync,
     {
         <span class="self">Self </span>{
             api: api.into(),
@@ -411,13 +411,13 @@
     ///
     /// ```
     /// use alpha_vantage::api::ApiClient;
-    /// let api = ApiClient::set_api(&quot;some_key&quot;, reqwest::Client::new());
+    /// let api = ApiClient::set_api("some_key", reqwest::Client::new());
     /// ```
     </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>set_rapid_api&lt;S, T&gt;(api: S, client: T) -&gt; <span class="self">Self
     </span><span class="kw">where
         </span>S: Into&lt;String&gt;,
-        T: HttpClient + <span class="lifetime">&#39;static </span>+ Send + Sync,
+        T: HttpClient + <span class="lifetime">'static </span>+ Send + Sync,
     {
         <span class="self">Self </span>{
             api: api.into(),
@@ -430,8 +430,8 @@
     ///
     /// ```
     /// use alpha_vantage::api::ApiClient;
-    /// let api = alpha_vantage::api::ApiClient::set_api(&quot;some_key&quot;, reqwest::Client::new());
-    /// assert_eq!(api.get_api_key(), &quot;some_key&quot;);
+    /// let api = alpha_vantage::api::ApiClient::set_api("some_key", reqwest::Client::new());
+    /// assert_eq!(api.get_api_key(), "some_key");
     /// ```
     </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>get_api_key(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
@@ -447,7 +447,7 @@
             Provider::AlphaVantage =&gt; {
                 <span class="self">self</span>.client
                     .get_alpha_vantage_provider_output(<span class="kw-2">&amp;</span><span class="macro">format!</span>(
-                        <span class="string">&quot;{BASE_URL}{path}&amp;apikey={}&quot;</span>,
+                        <span class="string">"{BASE_URL}{path}&amp;apikey={}"</span>,
                         <span class="self">self</span>.api
                     ))
                     .<span class="kw">await
@@ -455,7 +455,7 @@
             Provider::RapidAPI =&gt; {
                 <span class="self">self</span>.client
                     .get_rapid_api_provider_output(
-                        <span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;{RAPID_API_BASE_URL}{path}&quot;</span>),
+                        <span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">"{RAPID_API_BASE_URL}{path}"</span>),
                         <span class="kw-2">&amp;</span><span class="self">self</span>.api,
                     )
                     .<span class="kw">await
@@ -471,32 +471,32 @@
     /// ```
     /// #[tokio::main]
     /// async fn main() {
-    ///     let api = alpha_vantage::set_api(&quot;demo&quot;, reqwest::Client::new());
+    ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
     ///     let crypto = api
-    ///         .crypto(alpha_vantage::crypto::CryptoFunction::Daily, &quot;BTC&quot;, &quot;CNY&quot;)
+    ///         .crypto(alpha_vantage::crypto::CryptoFunction::Daily, "BTC", "EUR")
     ///         .json()
     ///         .await
     ///         .unwrap();
-    ///     assert_eq!(crypto.digital_code(), &quot;BTC&quot;);
-    ///     assert_eq!(crypto.digital_name(), &quot;Bitcoin&quot;);
-    ///     assert_eq!(crypto.market_code(), &quot;CNY&quot;);
-    ///     assert_eq!(crypto.market_name(), &quot;Chinese Yuan&quot;);
+    ///     assert_eq!(crypto.digital_code(), "BTC");
+    ///     assert_eq!(crypto.digital_name(), "Bitcoin");
+    ///     assert_eq!(crypto.market_code(), "EUR");
+    ///     assert_eq!(crypto.market_name(), "Euro");
     /// }
     /// ```
     </span><span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>crypto&lt;<span class="lifetime">&#39;a</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>,
+    </span><span class="kw">pub fn </span>crypto&lt;<span class="lifetime">'a</span>&gt;(
+        <span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>,
         function: CryptoFunction,
-        symbol: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
-        market: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
-    ) -&gt; CryptoBuilder&lt;<span class="lifetime">&#39;a</span>&gt; {
+        symbol: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
+        market: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
+    ) -&gt; CryptoBuilder&lt;<span class="lifetime">'a</span>&gt; {
         CryptoBuilder::new(<span class="self">self</span>, function, symbol, market)
     }
 
     <span class="doccomment">/// Method for calling custom function not implemented currently in library
     /// using `CustomBuilder`
     </span><span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>custom&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>, function: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; CustomBuilder&lt;<span class="lifetime">&#39;a</span>&gt; {
+    </span><span class="kw">pub fn </span>custom&lt;<span class="lifetime">'a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>, function: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str) -&gt; CustomBuilder&lt;<span class="lifetime">'a</span>&gt; {
         CustomBuilder::new(<span class="self">self</span>, function)
     }
 
@@ -505,14 +505,14 @@
     /// ```
     /// #[tokio::main]
     /// async fn main() {
-    ///     let api = alpha_vantage::set_api(&quot;demo&quot;, reqwest::Client::new());
-    ///     let earning = api.earning(&quot;IBM&quot;).json().await.unwrap();
+    ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
+    ///     let earning = api.earning("IBM").json().await.unwrap();
     ///     let symbol = earning.symbol();
-    ///     assert_eq!(symbol, &quot;IBM&quot;);
+    ///     assert_eq!(symbol, "IBM");
     /// }
     /// ```
     </span><span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>earning&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>, symbol: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; EarningBuilder&lt;<span class="lifetime">&#39;a</span>&gt; {
+    </span><span class="kw">pub fn </span>earning&lt;<span class="lifetime">'a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>, symbol: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str) -&gt; EarningBuilder&lt;<span class="lifetime">'a</span>&gt; {
         EarningBuilder::new(<span class="self">self</span>, symbol)
     }
 
@@ -522,17 +522,17 @@
     /// ```
     /// #[tokio::main]
     /// async fn main() {
-    ///     let api = alpha_vantage::set_api(&quot;demo&quot;, reqwest::Client::new());
+    ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
     ///     let economic = api
-    ///         .economic_indicator(&quot;REAL_GDP_PER_CAPITA&quot;)
+    ///         .economic_indicator("REAL_GDP_PER_CAPITA")
     ///         .json()
     ///         .await
     ///         .unwrap();
-    ///     assert_eq!(economic.interval(), &quot;quarterly&quot;);
+    ///     assert_eq!(economic.interval(), "quarterly");
     /// }
     /// ```
     </span><span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>economic_indicator&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>, function: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; EconomicIndicatorBuilder&lt;<span class="lifetime">&#39;a</span>&gt; {
+    </span><span class="kw">pub fn </span>economic_indicator&lt;<span class="lifetime">'a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>, function: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str) -&gt; EconomicIndicatorBuilder&lt;<span class="lifetime">'a</span>&gt; {
         EconomicIndicatorBuilder::new(<span class="self">self</span>, function)
     }
 
@@ -543,20 +543,20 @@
     /// ```
     /// #[tokio::main]
     /// async fn main() {
-    ///     let api = alpha_vantage::set_api(&quot;demo&quot;, reqwest::Client::new());
-    ///     let exchange = api.exchange(&quot;BTC&quot;, &quot;CNY&quot;).json().await.unwrap();
-    ///     assert_eq!(exchange.name_from(), &quot;Bitcoin&quot;);
-    ///     assert_eq!(exchange.code_from(), &quot;BTC&quot;);
-    ///     assert_eq!(exchange.name_to(), &quot;Chinese Yuan&quot;);
-    ///     assert_eq!(exchange.code_to(), &quot;CNY&quot;);
+    ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
+    ///     let exchange = api.exchange("BTC", "EUR").json().await.unwrap();
+    ///     assert_eq!(exchange.name_from(), "Bitcoin");
+    ///     assert_eq!(exchange.code_from(), "BTC");
+    ///     assert_eq!(exchange.name_to(), "Euro");
+    ///     assert_eq!(exchange.code_to(), "EUR");
     /// }
     /// ```
     </span><span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>exchange&lt;<span class="lifetime">&#39;a</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>,
-        from_currency: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
-        to_currency: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
-    ) -&gt; ExchangeBuilder&lt;<span class="lifetime">&#39;a</span>&gt; {
+    </span><span class="kw">pub fn </span>exchange&lt;<span class="lifetime">'a</span>&gt;(
+        <span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>,
+        from_currency: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
+        to_currency: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
+    ) -&gt; ExchangeBuilder&lt;<span class="lifetime">'a</span>&gt; {
         ExchangeBuilder::new(<span class="self">self</span>, from_currency, to_currency)
     }
 
@@ -566,24 +566,24 @@
     /// ```
     /// #[tokio::main]
     /// async fn main() {
-    ///     let api = alpha_vantage::set_api(&quot;demo&quot;, reqwest::Client::new());
+    ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
     ///     let forex = api
-    ///         .forex(alpha_vantage::forex::ForexFunction::Weekly, &quot;EUR&quot;, &quot;USD&quot;)
+    ///         .forex(alpha_vantage::forex::ForexFunction::Weekly, "EUR", "USD")
     ///         .json()
     ///         .await
     ///         .unwrap();
-    ///     assert_eq!(forex.symbol_from(), &quot;EUR&quot;);
-    ///     assert_eq!(forex.symbol_to(), &quot;USD&quot;);
+    ///     assert_eq!(forex.symbol_from(), "EUR");
+    ///     assert_eq!(forex.symbol_to(), "USD");
     ///     assert!(forex.interval().is_none());
     /// }
     /// ```
     </span><span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>forex&lt;<span class="lifetime">&#39;a</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>,
+    </span><span class="kw">pub fn </span>forex&lt;<span class="lifetime">'a</span>&gt;(
+        <span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>,
         function: ForexFunction,
-        from_symbol: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
-        to_symbol: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
-    ) -&gt; ForexBuilder&lt;<span class="lifetime">&#39;a</span>&gt; {
+        from_symbol: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
+        to_symbol: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
+    ) -&gt; ForexBuilder&lt;<span class="lifetime">'a</span>&gt; {
         ForexBuilder::new(<span class="self">self</span>, function, from_symbol, to_symbol)
     }
 
@@ -592,14 +592,14 @@
     /// ```
     /// #[tokio::main]
     /// async fn main() {
-    ///     let api = alpha_vantage::set_api(&quot;demo&quot;, reqwest::Client::new());
-    ///     let quote = api.quote(&quot;MSFT&quot;).json().await.unwrap();
+    ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
+    ///     let quote = api.quote("MSFT").json().await.unwrap();
     ///     let symbol = quote.symbol();
-    ///     assert_eq!(symbol, &quot;MSFT&quot;);
+    ///     assert_eq!(symbol, "MSFT");
     /// }
     /// ```
     </span><span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>quote&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>, symbol: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; QuoteBuilder&lt;<span class="lifetime">&#39;a</span>&gt; {
+    </span><span class="kw">pub fn </span>quote&lt;<span class="lifetime">'a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>, symbol: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str) -&gt; QuoteBuilder&lt;<span class="lifetime">'a</span>&gt; {
         QuoteBuilder::new(<span class="self">self</span>, symbol)
     }
 
@@ -609,19 +609,19 @@
     /// ```
     /// #[tokio::main]
     /// async fn main() {
-    ///     let api = alpha_vantage::set_api(&quot;demo&quot;, reqwest::Client::new());
-    ///     let search = api.search(&quot;BA&quot;).json().await.unwrap();
+    ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
+    ///     let search = api.search("BA").json().await.unwrap();
     ///     let first_search_match = &amp;search.matches()[0];
-    ///     assert_eq!(first_search_match.symbol(), &quot;BA&quot;);
-    ///     assert_eq!(first_search_match.name(), &quot;Boeing Company&quot;);
-    ///     assert_eq!(first_search_match.stock_type(), &quot;Equity&quot;);
-    ///     assert_eq!(first_search_match.region(), &quot;United States&quot;);
-    ///     assert_eq!(first_search_match.currency(), &quot;USD&quot;);
+    ///     assert_eq!(first_search_match.symbol(), "BA");
+    ///     assert_eq!(first_search_match.name(), "Boeing Company");
+    ///     assert_eq!(first_search_match.stock_type(), "Equity");
+    ///     assert_eq!(first_search_match.region(), "United States");
+    ///     assert_eq!(first_search_match.currency(), "USD");
     ///     assert_eq!(first_search_match.match_score(), 1.0);
     /// }
     /// ```
     </span><span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>search&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>, keywords: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; SearchBuilder&lt;<span class="lifetime">&#39;a</span>&gt; {
+    </span><span class="kw">pub fn </span>search&lt;<span class="lifetime">'a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>, keywords: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str) -&gt; SearchBuilder&lt;<span class="lifetime">'a</span>&gt; {
         SearchBuilder::new(<span class="self">self</span>, keywords)
     }
 
@@ -631,22 +631,22 @@
     /// ```
     /// #[tokio::main]
     /// async fn main() {
-    ///     let api = alpha_vantage::set_api(&quot;demo&quot;, reqwest::Client::new());
+    ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
     ///     let stock = api
-    ///         .stock_time(alpha_vantage::stock_time::StockFunction::Weekly, &quot;MSFT&quot;)
+    ///         .stock_time(alpha_vantage::stock_time::StockFunction::Weekly, "MSFT")
     ///         .json()
     ///         .await
     ///         .unwrap();
-    ///     assert_eq!(stock.symbol(), &quot;MSFT&quot;);
+    ///     assert_eq!(stock.symbol(), "MSFT");
     ///     assert!(stock.interval().is_none());
     /// }
     /// ```
     </span><span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>stock_time&lt;<span class="lifetime">&#39;a</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>,
+    </span><span class="kw">pub fn </span>stock_time&lt;<span class="lifetime">'a</span>&gt;(
+        <span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>,
         function: StockFunction,
-        symbol: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
-    ) -&gt; TimeSeriesBuilder&lt;<span class="lifetime">&#39;a</span>&gt; {
+        symbol: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
+    ) -&gt; TimeSeriesBuilder&lt;<span class="lifetime">'a</span>&gt; {
         TimeSeriesBuilder::new(<span class="self">self</span>, function, symbol)
     }
 
@@ -656,27 +656,27 @@
     /// ```
     /// #[tokio::main]
     /// async fn main() {
-    ///     let api = alpha_vantage::set_api(&quot;demo&quot;, reqwest::Client::new());
+    ///     let api = alpha_vantage::set_api("demo", reqwest::Client::new());
     ///     let technical = api
     ///         .technical_indicator(
-    ///             &quot;MAMA&quot;,
-    ///             &quot;IBM&quot;,
+    ///             "MAMA",
+    ///             "IBM",
     ///             alpha_vantage::technical_indicator::TechnicalIndicatorInterval::Daily,
     ///         )
-    ///         .series_type(&quot;close&quot;)
-    ///         .extra_param(&quot;fastlimit&quot;, 0.02)
+    ///         .series_type("close")
+    ///         .extra_param("fastlimit", 0.02)
     ///         .json()
     ///         .await;
     ///     assert!(technical.is_ok());
     /// }
     /// ```
     </span><span class="attr">#[must_use]
-    </span><span class="kw">pub fn </span>technical_indicator&lt;<span class="lifetime">&#39;a</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>,
-        function: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
-        symbol: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str,
+    </span><span class="kw">pub fn </span>technical_indicator&lt;<span class="lifetime">'a</span>&gt;(
+        <span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>,
+        function: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
+        symbol: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
         interval: TechnicalIndicatorInterval,
-    ) -&gt; TechnicalIndicatorBuilder&lt;<span class="lifetime">&#39;a</span>&gt; {
+    ) -&gt; TechnicalIndicatorBuilder&lt;<span class="lifetime">'a</span>&gt; {
         TechnicalIndicatorBuilder::new(<span class="self">self</span>, function, symbol, interval)
     }
 }
