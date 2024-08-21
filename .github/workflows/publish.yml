@@ -3,13 +3,16 @@ on:
   push:
     tags: "v*"
 
+permissions:
+  contents: write
+
 jobs:
   publish_crate:
     name: Publish to crates.io
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup rust toolchain
         uses: dtolnay/rust-toolchain@stable
       - name: Publish to crates.io
@@ -24,11 +27,11 @@ jobs:
     needs: publish_crate
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Generate a changelog
-        uses: orhun/git-cliff-action@v2
+        uses: orhun/git-cliff-action@v3
         id: git-cliff
         with:
           config: cliff.toml
@@ -36,8 +39,6 @@ jobs:
         env:
           OUTPUT: CHANGELOG.md
       - name: Create GitHub release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           body_path: ${{ steps.git-cliff.outputs.changelog }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

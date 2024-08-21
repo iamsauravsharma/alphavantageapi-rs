@@ -5,6 +5,9 @@ on:
     branches:
       - master
 
+permissions:
+  contents: write
+
 jobs:
   deploy_page:
     name: Deploy Github page
@@ -13,15 +16,15 @@ jobs:
       MAKE_FEATURES_FLAG: "--all-features"
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup rust toolchain
         uses: dtolnay/rust-toolchain@nightly
       - name: Install cargo make
         uses: davidB/rust-cargo-make@v1
-      - name: Create .env file
-        uses: iamsauravsharma/create-dotenv@v1.2.2
+      - name: Create env file
+        uses: iamsauravsharma/create-dotenv@v2.0.1
         with:
-          env-prefix: "MAKE_"
+          input-prefix: "MAKE_"
       - name: Generate documentation
         run: |
           cargo make rustdoc --env-file=.env
