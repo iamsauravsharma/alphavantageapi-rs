@@ -12,7 +12,7 @@ use serde::Deserialize;
 
 use crate::api::ApiClient;
 use crate::deserialize::from_str;
-use crate::error::{detect_common_helper_error, Error, Result};
+use crate::error::{Error, Result};
 
 /// Struct which stores matches data for search keyword
 #[derive(Debug, Clone, Deserialize, Default)]
@@ -184,10 +184,6 @@ impl Search {
 /// struct for helping creation of search struct
 #[derive(Debug, Deserialize)]
 pub(crate) struct SearchHelper {
-    #[serde(rename = "Information")]
-    information: Option<String>,
-    #[serde(rename = "Note")]
-    note: Option<String>,
     #[serde(rename = "bestMatches")]
     matches: Option<Vec<Match>>,
 }
@@ -195,7 +191,6 @@ pub(crate) struct SearchHelper {
 impl SearchHelper {
     fn convert(self) -> Result<Search> {
         let mut search = Search::default();
-        detect_common_helper_error(self.information, None, self.note)?;
         if self.matches.is_none() {
             return Err(Error::EmptyResponse);
         }

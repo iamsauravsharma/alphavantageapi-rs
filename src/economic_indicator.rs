@@ -14,7 +14,7 @@ use serde::Deserialize;
 
 use crate::api::ApiClient;
 use crate::deserialize::from_str;
-use crate::error::{detect_common_helper_error, Error, Result};
+use crate::error::{Error, Result};
 use crate::vec_trait::FindData;
 
 /// Struct for storing a data values
@@ -112,12 +112,6 @@ impl EconomicIndicator {
 /// Struct for helping indicator struct
 #[derive(Deserialize)]
 pub(crate) struct EconomicIndicatorHelper {
-    #[serde(rename = "Error Message")]
-    error_message: Option<String>,
-    #[serde(rename = "Information")]
-    information: Option<String>,
-    #[serde(rename = "Note")]
-    note: Option<String>,
     name: Option<String>,
     interval: Option<String>,
     unit: Option<String>,
@@ -126,7 +120,6 @@ pub(crate) struct EconomicIndicatorHelper {
 
 impl EconomicIndicatorHelper {
     fn convert(self) -> Result<EconomicIndicator> {
-        detect_common_helper_error(self.information, self.error_message, self.note)?;
         if self.name.is_none()
             || self.interval.is_none()
             || self.unit.is_none()

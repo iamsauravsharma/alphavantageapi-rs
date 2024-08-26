@@ -1,4 +1,5 @@
 //! Module which contains all types of error for alpha vantage crates
+use serde::de::DeserializeOwned;
 use thiserror::Error;
 
 /// Result type for alpha vantage crate
@@ -49,19 +50,35 @@ pub enum Error {
     CreateUrl,
 }
 
-pub(crate) fn detect_common_helper_error(
+#[derive(serde::Deserialize)]
+pub(crate) struct ErrorHolder<T> {
+    #[serde(rename = "Information")]
     information: Option<String>,
+    #[serde(rename = "Error Message")]
     error_message: Option<String>,
+    #[serde(rename = "Note")]
     note: Option<String>,
-) -> Result<()> {
-    if let Some(information) = information {
-        return Err(Error::AlphaVantageInformation(information));
+    #[serde(flatten)]
+    data: Option<T>,
+}
+
+impl<T> ErrorHolder<T>
+where
+    T: DeserializeOwned,
+{
+    pub(crate) fn handle_common_error(self) -> Result<T> {
+        if let Some(information) = self.information {
+            return Err(Error::AlphaVantageInformation(information));
+        }
+        if let Some(error_message) = self.error_message {
+            return Err(Error::AlphaVantageErrorMessage(error_message));
+        }
+        if let Some(note) = self.note {
+            return Err(Error::AlphaVantageNote(note));
+        }
+        let Some(data) = self.data else {
+            return Err(Error::AlphaVantageInvalidData);
+        };
+        Ok(data)
     }
-    if let Some(error_message) = error_message {
-        return Err(Error::AlphaVantageErrorMessage(error_message));
-    }
-    if let Some(note) = note {
-        return Err(Error::AlphaVantageNote(note));
-    }
-    Ok(())
 }

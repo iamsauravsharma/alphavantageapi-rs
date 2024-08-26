@@ -15,7 +15,7 @@ use serde::Deserialize;
 
 use crate::api::{ApiClient, OutputSize, TimeSeriesInterval};
 use crate::deserialize::from_str;
-use crate::error::{detect_common_helper_error, Error, Result};
+use crate::error::{Error, Result};
 use crate::vec_trait::FindData;
 
 /// Struct used to store metadata value
@@ -247,12 +247,6 @@ struct DataHelper {
 /// struct which helps for collecting forex data from website
 #[derive(Debug, Deserialize)]
 pub(crate) struct ForexHelper {
-    #[serde(rename = "Error Message")]
-    error_message: Option<String>,
-    #[serde(rename = "Information")]
-    information: Option<String>,
-    #[serde(rename = "Note")]
-    note: Option<String>,
     #[serde(rename = "Meta Data")]
     meta_data: Option<HashMap<String, String>>,
     #[serde(flatten)]
@@ -262,8 +256,6 @@ pub(crate) struct ForexHelper {
 impl ForexHelper {
     /// convert `ForexHelper` to `Forex`
     fn convert(self) -> Result<Forex> {
-        detect_common_helper_error(self.information, self.error_message, self.note)?;
-
         if self.meta_data.is_none() || self.forex.is_none() {
             return Err(Error::EmptyResponse);
         }

@@ -5,10 +5,11 @@ use crate::error::{Error, Result};
 #[async_trait]
 /// Trait which can be implemented for all common library client for getting
 /// output from server
-/// reqwest is client which is supported with feature flag. If
-/// you prefer alternate http client you can add support by implementing
-/// `HttpClient` trait for client.
-/// Some example of other client which can be used are surf and isahc client
+///
+/// reqwest client is supported with feature flag. If you prefer alternate http
+/// client you can add support by implementing `HttpClient` trait for client.
+/// Some example of other client which can be used are surf and isahc client or
+/// other reqwest version
 pub trait HttpClient {
     /// AlphaVantage provider output function which provides one field path
     /// where get GET request needs to be performed

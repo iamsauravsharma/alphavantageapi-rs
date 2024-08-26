@@ -12,7 +12,7 @@ use serde::Deserialize;
 
 use crate::api::ApiClient;
 use crate::deserialize::{from_str, percent_f64};
-use crate::error::{detect_common_helper_error, Error, Result};
+use crate::error::{Error, Result};
 
 /// Struct storing Global Quote Value
 #[derive(Debug, Deserialize, Clone, Default)]
@@ -120,12 +120,6 @@ impl Quote {
 /// Struct for helping creation of Quote
 #[derive(Debug, Deserialize)]
 pub(crate) struct QuoteHelper {
-    #[serde(rename = "Error Message")]
-    error_message: Option<String>,
-    #[serde(rename = "Information")]
-    information: Option<String>,
-    #[serde(rename = "Note")]
-    note: Option<String>,
     #[serde(rename = "Global Quote")]
     global_quote: Option<GlobalQuote>,
 }
@@ -133,7 +127,6 @@ pub(crate) struct QuoteHelper {
 impl QuoteHelper {
     fn convert(self) -> Result<Quote> {
         let mut quote = Quote::default();
-        detect_common_helper_error(self.information, self.error_message, self.note)?;
         if self.global_quote.is_none() {
             return Err(Error::EmptyResponse);
         }

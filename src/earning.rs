@@ -8,7 +8,7 @@ use serde::Deserialize;
 
 use crate::api::ApiClient;
 use crate::deserialize::{from_none_str, from_str};
-use crate::error::{detect_common_helper_error, Error, Result};
+use crate::error::{Error, Result};
 
 /// Struct to store information of annual earning
 #[derive(Debug, Deserialize, Clone, Default)]
@@ -132,12 +132,6 @@ impl Earning {
 /// Struct used for creating earning
 #[derive(Debug, Deserialize)]
 pub(crate) struct EarningHelper {
-    #[serde(rename = "Information")]
-    information: Option<String>,
-    #[serde(rename = "Error Message")]
-    error_message: Option<String>,
-    #[serde(rename = "Note")]
-    note: Option<String>,
     #[serde(rename = "symbol")]
     symbol: Option<String>,
     #[serde(rename = "annualEarnings")]
@@ -150,7 +144,6 @@ impl EarningHelper {
     /// `Earning`
     fn convert(self) -> Result<Earning> {
         let mut earning = Earning::default();
-        detect_common_helper_error(self.information, self.error_message, self.note)?;
         if self.symbol.is_none()
             || self.annual_earning.is_none()
             || self.quarterly_earning.is_none()

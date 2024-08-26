@@ -15,7 +15,7 @@ use serde::Deserialize;
 use serde_json::value::Value;
 
 use crate::api::ApiClient;
-use crate::error::{detect_common_helper_error, Error, Result};
+use crate::error::{Error, Result};
 
 type DataType = HashMap<String, HashMap<String, HashMap<String, String>>>;
 
@@ -86,12 +86,6 @@ impl TechnicalIndicator {
 /// Struct for helping `TechnicalIndicator` struct
 #[derive(Deserialize)]
 pub(crate) struct TechnicalIndicatorHelper {
-    #[serde(rename = "Error Message")]
-    error_message: Option<String>,
-    #[serde(rename = "Information")]
-    information: Option<String>,
-    #[serde(rename = "Note")]
-    note: Option<String>,
     #[serde(rename = "Meta Data")]
     metadata: Option<HashMap<String, Value>>,
     #[serde(flatten)]
@@ -100,7 +94,6 @@ pub(crate) struct TechnicalIndicatorHelper {
 
 impl TechnicalIndicatorHelper {
     fn convert(self) -> Result<TechnicalIndicator> {
-        detect_common_helper_error(self.information, self.error_message, self.note)?;
         if self.metadata.is_none() || self.data.is_none() {
             return Err(Error::EmptyResponse);
         }

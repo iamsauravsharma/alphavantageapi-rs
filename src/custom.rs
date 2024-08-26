@@ -1,36 +1,7 @@
-use std::collections::HashMap;
-
-use serde::de::value::MapDeserializer;
 use serde::de::DeserializeOwned;
-use serde::Deserialize;
-use serde_json::Value;
 
 use crate::api::ApiClient;
-use crate::error::{detect_common_helper_error, Error, Result};
-/// struct used for helping creation of custom url
-#[derive(Debug, Deserialize)]
-pub(crate) struct CustomHelper {
-    #[serde(rename = "Error Message")]
-    error_message: Option<String>,
-    #[serde(rename = "Information")]
-    information: Option<String>,
-    #[serde(rename = "Note")]
-    note: Option<String>,
-    #[serde(flatten)]
-    extras: HashMap<String, Value>,
-}
-
-impl CustomHelper {
-    fn convert<T>(self) -> Result<T>
-    where
-        T: DeserializeOwned,
-    {
-        detect_common_helper_error(self.information, self.error_message, self.note)?;
-        let data = self.extras;
-        T::deserialize(MapDeserializer::new(data.into_iter()))
-            .map_err(|_| Error::DecodeJsonToStruct)
-    }
-}
+use crate::error::Result;
 
 /// Builder to create new Custom Struct
 pub struct CustomBuilder<'a> {
@@ -75,7 +46,6 @@ impl<'a> CustomBuilder<'a> {
         T: DeserializeOwned,
     {
         let url = self.create_url();
-        let custom_helper: CustomHelper = self.api_client.get_json(&url).await?;
-        custom_helper.convert()
+        self.api_client.get_json(&url).await
     }
 }

@@ -15,7 +15,7 @@ use serde::Deserialize;
 
 use crate::api::ApiClient;
 use crate::deserialize::from_str;
-use crate::error::{detect_common_helper_error, Error, Result};
+use crate::error::{Error, Result};
 use crate::vec_trait::FindData;
 
 /// Store Meta Data Information
@@ -245,12 +245,6 @@ struct DataHelper {
 /// Struct to help out for creation of struct Crypto
 #[derive(Deserialize)]
 pub(crate) struct CryptoHelper {
-    #[serde(rename = "Information")]
-    information: Option<String>,
-    #[serde(rename = "Error Message")]
-    error_message: Option<String>,
-    #[serde(rename = "Note")]
-    note: Option<String>,
     #[serde(rename = "Meta Data")]
     meta_data: Option<MetaData>,
     #[serde(flatten)]
@@ -260,7 +254,6 @@ pub(crate) struct CryptoHelper {
 impl CryptoHelper {
     /// Function which convert `CryptoHelper` to `Crypto`
     fn convert(self) -> Result<Crypto> {
-        detect_common_helper_error(self.information, self.error_message, self.note)?;
         if self.meta_data.is_none() || self.data.is_none() {
             return Err(Error::EmptyResponse);
         }

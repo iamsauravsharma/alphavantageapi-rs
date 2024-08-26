@@ -12,7 +12,7 @@ use serde::Deserialize;
 
 use crate::api::ApiClient;
 use crate::deserialize::from_str;
-use crate::error::{detect_common_helper_error, Error, Result};
+use crate::error::{Error, Result};
 
 /// Struct used for exchanging currency
 #[derive(Default)]
@@ -142,12 +142,6 @@ impl Exchange {
 /// Struct used for helping creation of Exchange
 #[derive(Debug, Deserialize)]
 pub(crate) struct ExchangeHelper {
-    #[serde(rename = "Error Message")]
-    error_message: Option<String>,
-    #[serde(rename = "Information")]
-    information: Option<String>,
-    #[serde(rename = "Note")]
-    note: Option<String>,
     #[serde(rename = "Realtime Currency Exchange Rate")]
     real_time: Option<RealtimeExchangeRate>,
 }
@@ -155,7 +149,6 @@ pub(crate) struct ExchangeHelper {
 impl ExchangeHelper {
     fn convert(self) -> Result<Exchange> {
         let mut exchange = Exchange::default();
-        detect_common_helper_error(self.information, self.error_message, self.note)?;
         if self.real_time.is_none() {
             return Err(Error::EmptyResponse);
         }

@@ -18,7 +18,7 @@ use serde::Deserialize;
 
 use crate::api::{ApiClient, OutputSize, TimeSeriesInterval};
 use crate::deserialize::from_str;
-use crate::error::{detect_common_helper_error, Error, Result};
+use crate::error::{Error, Result};
 use crate::vec_trait::FindData;
 
 /// Struct for storing Meta Data value
@@ -280,12 +280,6 @@ struct AdjustedHelper {
 /// helper struct for `TimeSeries` which deserialize JSON
 #[derive(Deserialize)]
 pub(crate) struct TimeSeriesHelper {
-    #[serde(rename = "Error Message")]
-    error_message: Option<String>,
-    #[serde(rename = "Information")]
-    information: Option<String>,
-    #[serde(rename = "Note")]
-    note: Option<String>,
     #[serde(rename = "Meta Data")]
     meta_data: Option<HashMap<String, String>>,
     #[serde(flatten)]
@@ -297,8 +291,6 @@ pub(crate) struct TimeSeriesHelper {
 impl TimeSeriesHelper {
     /// Convert `TimeSeriesHelper` to `TimeSeries`
     fn convert(self) -> Result<TimeSeries> {
-        detect_common_helper_error(self.information, self.error_message, self.note)?;
-
         if self.meta_data.is_none()
             || (self.time_series.is_none() && self.adjusted_series.is_none())
         {

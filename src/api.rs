@@ -5,7 +5,7 @@ use crate::crypto::{CryptoBuilder, CryptoFunction};
 use crate::custom::CustomBuilder;
 use crate::earning::EarningBuilder;
 use crate::economic_indicator::EconomicIndicatorBuilder;
-use crate::error::{Error, Result};
+use crate::error::{Error, ErrorHolder, Result};
 use crate::exchange::ExchangeBuilder;
 use crate::forex::{ForexBuilder, ForexFunction};
 use crate::quote::QuoteBuilder;
@@ -107,7 +107,9 @@ impl ApiClient {
                     .await
             }
         }?;
-        serde_json::from_str(&string_output).map_err(|_| Error::DecodeJsonToStruct)
+        let with_error: ErrorHolder<T> =
+            serde_json::from_str(&string_output).map_err(|_| Error::DecodeJsonToStruct)?;
+        with_error.handle_common_error()
     }
 
     /// Crypto method for calling cryptography function with help of
