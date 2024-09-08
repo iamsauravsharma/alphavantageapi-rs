@@ -27,7 +27,7 @@ Edit Cargo.toml file to add alpha_vantage as dependencies
 
 ```toml
 [dependencies]
-alpha_vantage = "0.10.0"
+alpha_vantage = "0.11.0"
 ```
 
 **OR**
